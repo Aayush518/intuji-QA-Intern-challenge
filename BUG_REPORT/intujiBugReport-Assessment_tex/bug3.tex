@@ -1,0 +1,56 @@
+\section{Bug \#3: Picture Upload Field Accepts Any File Type}
+
+\bugtitle{Picture Upload Field Accepts Non-Image Files and Has Persistent Caching Issues}
+
+\subsection*{Description}
+The picture upload functionality has multiple issues:
+\begin{enumerate}
+    \item It accepts any file type (PDFs, ZIP, WAV, etc.) instead of limiting to image formats
+    \item The uploaded file persists in memory even when the form is reset or closed
+    \item When the form is closed (via close button) and reopened without page refresh, and submitted without selecting a new picture, the previously uploaded file is still submitted despite the upload field appearing empty
+\end{enumerate}
+
+\subsection*{Steps to Reproduce}
+\subsubsection*{For file type issue:}
+\begin{enumerate}
+    \item Navigate to \url{https://demoqa.com/automation-practice-form}
+    \item Click on the "Select picture" button
+    \item Select a non-image file (e.g., PDF, ZIP, WAV)
+    \item Observe that the file is accepted
+\end{enumerate}
+
+\subsubsection*{For caching issue without page refresh:}
+\begin{enumerate}
+    \item Upload a picture to the form
+    \item Click the Submit button
+    \item When the confirmation modal appears, click the Close button
+    \item Observe that all form fields are reset, including the file upload field (no filename is displayed)
+    \item Without uploading a new file, click Submit again
+    \item Observe that the previously uploaded file is still submitted even though no file appears to be selected
+\end{enumerate}
+
+\subsubsection*{For caching issue with page refresh:}
+\begin{enumerate}
+    \item Upload a picture and submit the form
+    \item Refresh the page
+    \item Observe that the file upload field is properly reset (as expected)
+\end{enumerate}
+
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+\begin{itemize}
+    \item Picture upload should only accept image file types (JPG, PNG, GIF, etc.)
+    \item When the form is reset after submission (via Close button), all form data including the file upload should be completely cleared from memory
+    \item A new submission after form reset should not include any previously uploaded files unless explicitly selected again
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+\begin{itemize}
+    \item Any file type is accepted for upload
+    \item When the form is reset via the Close button after submission, the file upload appears to be reset visually, but the file data persists in memory
+    \item Form submissions after resetting (without page refresh) still include the previously uploaded file even though the file upload field appears empty
+\end{itemize}
+\end{tcolorbox}
+
+\severity{High (Security concern with accepting any file type and data persistence issue)}{High (Affects data security and user experience)}

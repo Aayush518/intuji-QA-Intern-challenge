@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{graphicx}
+
+\geometry{margin=1in}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Bug Report: Student Registration Form},
+    pdfauthor={QA Tester},
+}
+
+\newcommand{\bugtitle}[1]{\subsection{#1}}
+\newcommand{\severity}[2]{
+    \begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Severity and Priority]
+        \textbf{Severity}: #1\\
+        \textbf{Priority}: #2
+    \end{tcolorbox}
+}
+
+\title{Bug Report: Student Registration Form}
+\author{Aayush Adhikari}
+\date{25 April 2025}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+    \large{\textbf{Test URL:} \url{https://demoqa.com/automation-practice-form}}
+\end{center}
+
+\vspace{1cm}
+
+\tableofcontents
+\newpage
+
+% Include each bug report from separate files
+\input{bug1.tex}
+\newpage
+
+\input{bug2.tex}
+\newpage
+
+\input{bug3.tex}
+\newpage
+
+\input{bug4.tex}
+\newpage
+
+\input{bug5.tex}
+\newpage
+
+\section{Testing Environment}
+
+\begin{tabular}{ll}
+\toprule
+\textbf{Browser} & Safari, Google Chrome \\
+\textbf{Operating System} & macOS \\
+\textbf{Date Tested} & 26 April 2025 \\
+\bottomrule
+\end{tabular}
+
+\section{Screenshots}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/Screenshot 2025-04-26 at 00.34.49.png}
+    \caption{State and City selection dependency issues (Bug \#5)}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/Screenshot 2025-04-26 at 01.20.48.png}
+    \caption{Empty fields submission (Bug \#4)}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/Screenshot 2025-04-26 at 01.23.40.png}
+    \caption{Email-filed validation (Bug \#1)}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/Screenshot 2025-04-26 at 01.26.12.png}
+    \caption{DOB selector issues (Bug \#2)}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/Screenshot 2025-04-26 at 01.28.40.png}
+    \caption{DOB selector issues (Bug \#3)}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{document}

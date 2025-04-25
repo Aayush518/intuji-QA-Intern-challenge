@@ -1,0 +1,31 @@
+\section{Bug \#1: Email Field Validation Not Working Properly}
+
+\bugtitle{Email Field Accepts Empty Input But Validates Incorrectly When Typing}
+
+\subsection*{Description}
+The email field on the student registration form has inconsistent validation behavior. When left completely empty, the form allows submission without any validation error. However, once a user starts typing anything in the field, validation is triggered and expects an email format, but accepts any text containing '@' regardless of domain validity.
+
+\subsection*{Steps to Reproduce}
+\begin{enumerate}
+    \item Navigate to \url{https://demoqa.com/automation-practice-form}
+    \item Leave the email field completely empty
+    \item Fill out other required fields (First Name, Last Name, Gender, Mobile)
+    \item Click Submit
+    \item Observe that the form submits without validating the empty email
+    \item Reload the page
+    \item Start typing in the email field (e.g., "test")
+    \item Notice validation appears requiring '@'
+    \item Type "test@anything" with an invalid domain
+    \item Observe the validation accepts this format
+\end{enumerate}
+
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+Email field should be validated whether empty or filled, and should only accept properly formatted email addresses with valid domains (e.g., @example.com, @gmail.com)
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+Empty email field is not validated at all, and partial validation only begins once typing starts. The validation accepts any text with '@' regardless of domain validity.
+\end{tcolorbox}
+
+\severity{High (Data integrity issue that allows invalid contact information)}{High (Affects core functionality and data quality)}

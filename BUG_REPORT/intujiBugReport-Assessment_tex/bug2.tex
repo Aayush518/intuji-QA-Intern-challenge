@@ -1,0 +1,29 @@
+\section{Bug \#2: Date of Birth Calendar Allows Future Dates}
+
+\bugtitle{Date of Birth Dropdown Calendar Allows Selection of Future Dates Up to Year 2100}
+
+\subsection*{Description}
+The Date of Birth dropdown calendar picker for the student registration form allows selection of future dates up to the year 2100. The calendar interface features month and year dropdown selectors that include future years. This is illogical for a student registration form as it allows selection of birth dates that haven't occurred yet.
+
+\subsection*{Steps to Reproduce}
+\begin{enumerate}
+    \item Navigate to \url{https://demoqa.com/automation-practice-form}
+    \item Click on the Date of Birth field to open the calendar picker
+    \item Click on the year dropdown in the calendar header
+    \item Scroll through the dropdown list and observe that years up to 2100 are available
+    \item Select a future year (e.g., 2050)
+    \item Select any month from the month dropdown
+    \item Click on any day in the calendar
+    \item Observe that this future date is accepted as a valid date of birth
+\end{enumerate}
+
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+Date of Birth calendar should only allow selection of past dates up to the current date, as future dates cannot logically be birth dates. The year dropdown should be limited to years from past to present.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+Calendar's year dropdown allows selection of dates up to year 2100, including future dates that haven't occurred yet, which is inappropriate for a birth date field.
+\end{tcolorbox}
+
+\severity{Medium (Logical error that allows impossible data)}{Medium (Affects data integrity but doesn't prevent form operation)}

@@ -1,0 +1,49 @@
+\section{Bug \#5: State and City Selection Dependency Issues}
+
+\bugtitle{State and City Selection Has Multiple Dependency and Update Issues}
+
+\subsection*{Description}
+The State and City selection fields have several issues:
+\begin{enumerate}
+    \item Form submits even when both State and City are left unselected
+    \item If State is selected but City is not, form still submits
+    \item When changing State after a City is already selected, the City selection doesn't reset or update to match the new State options
+\end{enumerate}
+
+\subsection*{Steps to Reproduce}
+\subsubsection*{For submission with empty fields:}
+\begin{enumerate}
+    \item Navigate to \url{https://demoqa.com/automation-practice-form}
+    \item Fill other required fields but leave State and City unselected
+    \item Click Submit
+    \item Observe form submits successfully
+\end{enumerate}
+
+\subsubsection*{For State-City dependency issue:}
+\begin{enumerate}
+    \item Select a State from the dropdown
+    \item Select a City from the dropdown
+    \item Change the State selection to a different state
+    \item Observe that the previously selected City remains selected even though it may not belong to the new State
+    \item Submit the form
+    \item Observe that the mismatched State-City combination is submitted
+\end{enumerate}
+
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+\begin{itemize}
+    \item Form should require both State and City if they are required fields
+    \item When State is changed, the City selection should reset or update to show only cities relevant to the selected State
+    \item Mismatched State-City combinations should not be allowed
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+\begin{itemize}
+    \item Form submits with empty State and City fields
+    \item When State is changed, previously selected City remains selected even if not valid for the new State
+    \item Mismatched State-City combinations are submitted
+\end{itemize}
+\end{tcolorbox}
+
+\severity{Medium (Data integrity and relationship issue)}{Medium (Affects data quality and relationship integrity)}

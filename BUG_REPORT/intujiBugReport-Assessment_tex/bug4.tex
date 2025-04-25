@@ -1,0 +1,40 @@
+\section{Bug \#4: Form Submits With Empty Required Fields}
+
+\bugtitle{Form Submits Successfully With Multiple Empty Required Fields}
+
+\subsection*{Description}
+The form allows submission even when several fields that should logically be required are left empty:
+\begin{enumerate}
+    \item Subjects field can be left completely empty
+    \item Current Address field can be left empty
+    \item Picture upload can be skipped entirely
+    \item Hobbies checkboxes can all be left unselected
+    \item State and City fields can both be left unselected
+\end{enumerate}
+
+\subsection*{Steps to Reproduce}
+\begin{enumerate}
+    \item Navigate to \url{https://demoqa.com/automation-practice-form}
+    \item Fill only the minimum required fields (First Name, Last Name, Gender, Mobile Number)
+    \item Leave all other fields empty:
+    \begin{itemize}
+        \item Don't select any Subjects
+        \item Leave Current Address blank
+        \item Don't upload any Picture
+        \item Don't select any Hobbies
+        \item Don't select State or City
+    \end{itemize}
+    \item Click Submit
+    \item Observe that the form submits successfully
+\end{enumerate}
+
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+If fields are crucial for the student registration process (like Subjects for a student), the form should validate them and prevent submission if they're empty
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+The form submits successfully even with multiple logically required fields left empty, resulting in incomplete student records
+\end{tcolorbox}
+
+\severity{Medium (Data completeness issue)}{Medium (Affects data quality and usefulness of collected information)}
