@@ -6,13 +6,19 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test": "cypress run"
+    "test": "cypress run --config-file cypress.config.js",
+    "test:reliable": "NODE_OPTIONS=\"--max-old-space-size=4096\" cypress run --config-file cypress.config.js"
   },
-  "keywords": ["cypress", "automation", "testing"],
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "cypress": "^13.6.0"
+    "cypress": "^13.6.0",
+    "cypress-file-upload": "^5.0.8"
   }
 }

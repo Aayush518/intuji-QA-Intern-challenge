@@ -1,0 +1,6 @@
+{
+  "name": "test_image.jpg",
+  "size": 1234,
+  "type": "image/jpeg",
+  "description": "A sample image for testing file uploads"
+}
