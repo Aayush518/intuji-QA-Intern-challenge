@@ -1,0 +1,34 @@
+\section{Bug \#6: Phone Number Validation Allowing Invalid Entries}
+\bugtitle{Phone Number Field Accepting Numbers Less Than 10 Digits}
+\subsection*{Description}
+The Phone Number validation has critical issues:
+\begin{enumerate}
+    \item Phone numbers with fewer than 10 digits are being accepted
+    \item While only numeric values are properly validated, the length requirement is not enforced
+    \item Form submits successfully with invalid phone number length
+\end{enumerate}
+\subsection*{Steps to Reproduce}
+\subsubsection*{For submission with invalid phone number:}
+\begin{enumerate}
+    \item Navigate to the registration form page
+    \item Fill in other required fields correctly
+    \item Enter a phone number with fewer than 10 digits (e.g., "12345")
+    \item Click Submit
+    \item Observe form submits successfully with the invalid phone number
+\end{enumerate}
+\subsection*{Expected vs. Actual Behavior}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Expected Behavior]
+\begin{itemize}
+    \item Phone number field should validate for exactly 10 digits
+    \item Form should reject submission and display an error when phone number has fewer than 10 digits
+    \item User should be prompted to correct the phone number before proceeding
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!40, title=Actual Behavior]
+\begin{itemize}
+    \item Phone number field accepts numbers with fewer than 10 digits
+    \item Form submits successfully with invalid phone numbers
+    \item No validation error is displayed to the user
+\end{itemize}
+\end{tcolorbox}
+\severity{High (Data validation issue)}{High (Affects user data integrity and system reliability)}
