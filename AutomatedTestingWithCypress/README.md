@@ -4,6 +4,9 @@
 - Node.js installed
 - npm installed
 
+## Important Notes
+- **Browser Compatibility**: Tests may encounter issues when running with Electron (default browser). Chrome is recommended for the most reliable test execution.
+
 ## Steps to Run Tests
 
 1. Install dependencies:
@@ -26,7 +29,7 @@ npm run cypress:run
 npm run cypress:run -- --spec "cypress/e2e/student-registration-form.cy.js"
 ```
 
-5. Run test in headed mode with Chrome browser:
+5. Run test in headed mode with Chrome browser (recommended):
 ```bash
 cd /Users/aayushadhikari/intuji-QA-Intern-challenge/AutomatedTestingWithCypress && npx cypress run --spec "cypress/e2e/student-registration-form.cy.js" --browser chrome --headed
 ```
