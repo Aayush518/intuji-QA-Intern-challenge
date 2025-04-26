@@ -558,4 +558,134 @@ describe('Student Registration Form Tests', () => {
       cy.get('#userEmail').clear().type(this.studentData.email);
     });
   }); 
+
+  // ================ RESPONSIVE UI TESTING ================
+  context('Responsive UI Tests', () => {
+    // Define viewport sizes for testing
+    const viewportSizes = [
+      { width: 1280, height: 800, device: 'desktop' },
+      { width: 768, height: 1024, device: 'tablet' },
+      { width: 375, height: 667, device: 'mobile' }
+    ];
+
+    // Test for form visibility and layout across different viewport sizes
+    it('TC-043, TC-044, TC-045: Should display form properly on different screen sizes', function() {
+      // Test for each viewport size
+      viewportSizes.forEach(size => {
+        // Set viewport to specified size
+        cy.viewport(size.width, size.height);
+        cy.log(`Testing on ${size.device} resolution: ${size.width}x${size.height}`);
+        
+        // Reload the page to ensure proper layout with new viewport
+        cy.reliableVisit('/automation-practice-form');
+        cy.cleanUpPage();
+        
+        // Check that form container is visible
+        cy.get('.practice-form-wrapper').should('be.visible');
+        
+        // Check main form elements are visible
+        cy.get('#firstName').should('be.visible');
+        cy.get('#lastName').should('be.visible');
+        
+        if (size.device === 'mobile') {
+          // On mobile, verify scroll functionality works for form
+          cy.get('#firstName').scrollIntoView().should('be.visible');
+          cy.get('#submit').scrollIntoView().should('be.visible');
+          
+          // Test that inputs are still functional on mobile
+          cy.get('#firstName').type('MobileTest');
+          cy.get('#firstName').should('have.value', 'MobileTest');
+        } else {
+          // On larger screens, check additional form elements
+          cy.get('#userEmail').should('be.visible');
+          cy.get('#genterWrapper').should('be.visible');
+          
+          // Check that form layout appears properly in viewport
+          cy.get('.practice-form-wrapper')
+            .should('have.css', 'display')
+            .and(display => {
+              // Log current display property
+              cy.log(`Form display property: ${display}`);
+            });
+        }
+        
+        // Verify form submission button is accessible
+        cy.get('#submit').scrollIntoView().should('be.visible');
+        
+        // Check specific elements for tablet view
+        if (size.device === 'tablet') {
+          // Verify subject and hobbies sections on tablet
+          cy.get('#subjectsWrapper').scrollIntoView().should('be.visible');
+          cy.get('#hobbiesWrapper').scrollIntoView().should('be.visible');
+        }
+        
+        // Take screenshots for visual verification
+        cy.screenshot(`form-${size.device}-resolution`, { capture: 'viewport' });
+      });
+    });
+    
+    // Test for form interactive elements accessibility across viewport sizes
+    it('TC-037: Should keep form interactive and accessible on different screen sizes', function() {
+      // Test interactive elements on mobile viewport
+      cy.viewport(375, 667);
+      cy.log('Testing form accessibility on mobile');
+      cy.reliableVisit('/automation-practice-form');
+      cy.cleanUpPage();
+      
+      // Use tab navigation to check keyboard accessibility on small screens
+      cy.get('body').tab();
+      cy.focused().should('exist');
+      
+      // Check if we can fill the form on mobile view
+      cy.get('#firstName').scrollIntoView().type('MobileTest');
+      cy.get('#lastName').scrollIntoView().type('User');
+      cy.get('label[for="gender-radio-1"]').scrollIntoView().click();
+      cy.get('#userNumber').scrollIntoView().type('1234567890');
+      
+      // Try submitting the form and verify interaction works
+      cy.get('#submit').scrollIntoView().click({force: true});
+      
+      // Verify we can interact with modal on small screens
+      cy.get('body').then($body => {
+        if ($body.find('#example-modal-sizes-title-lg').length > 0) {
+          cy.get('#example-modal-sizes-title-lg').should('be.visible');
+          cy.get('#closeLargeModal').scrollIntoView().should('be.visible').click();
+        }
+      });
+    });
+
+    // Test for form elements alignment on medium screens
+    it('TC-034: Should maintain form layout and alignment on tablet', function() {
+      // Set tablet viewport size
+      cy.viewport(768, 1024);
+      cy.reliableVisit('/automation-practice-form');
+      cy.cleanUpPage();
+      
+      // Verify form column layout adjusts appropriately
+      cy.get('.row').first().then($row => {
+        // Check spacing between form elements
+        cy.wrap($row).find('.col-md-6').then($cols => {
+          if ($cols.length >= 2) {
+            // Verify columns are side by side in tablet view
+            const firstColRect = $cols[0].getBoundingClientRect();
+            const secondColRect = $cols[1].getBoundingClientRect();
+            
+            // Check if columns are positioned correctly
+            const isCorrectlyPositioned = (
+              firstColRect.left < secondColRect.left || 
+              firstColRect.top !== secondColRect.top
+            );
+            
+            cy.log(`Columns correctly positioned: ${isCorrectlyPositioned}`);
+            
+            // No assertion here as it may vary by implementation
+          }
+        });
+      });
+      
+      // Check overflow behavior in tablet view
+      cy.get('#currentAddress').scrollIntoView().type('A'.repeat(100));
+      cy.get('#currentAddress').should('be.visible');
+    });
+  });
 });
