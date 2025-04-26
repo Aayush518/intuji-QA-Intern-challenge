@@ -15,3 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
+// Import the cypress-plugin-tab
+import 'cypress-plugin-tab'
