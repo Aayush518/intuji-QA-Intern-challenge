@@ -1,0 +1,18 @@
+{
+  "name": "automatedtestingwithcypress",
+  "version": "1.0.0",
+  "description": "Automated testing for DemoQA Student Registration Form",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run"
+  },
+  "keywords": ["cypress", "automation", "testing"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  }
+}
